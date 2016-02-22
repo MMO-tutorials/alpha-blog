@@ -18,3 +18,5 @@
 
 # RubyMine project files
 .idea
+
+.byebug_history
