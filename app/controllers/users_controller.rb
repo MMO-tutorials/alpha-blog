@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:edit, :update, :show]
+
   def index
     @users = User.paginate(page: params[:page], per_page: 4)
   end
@@ -18,11 +20,9 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "Your account was updated."
       redirect_to articles_path
@@ -32,8 +32,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 4)
+  end
+
+  def set_user
+    @user = User.find(params[:id])
   end
 
   private
